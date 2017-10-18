@@ -1,0 +1,5 @@
+name: 'Virtual machine unique name values'
+type: module
+description: Virtual machine uninque name values
+core: 8.x
+package: Maadix

@@ -1,0 +1,16 @@
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.default
+    - field.storage.commerce_order_item.machine_name_vm
+id: commerce_order_item.default.machine_name_vm
+field_name: machine_name_vm
+entity_type: commerce_order_item
+bundle: default
+label: 'VM Machine name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

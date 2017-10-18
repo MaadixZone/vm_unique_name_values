@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Restricts the names of vm's.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function vm_unique_name_values_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the recurring_payments module.
+    case 'help.page.vm_unique_name_values':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Handles the virtual machine name unique name values.') . '</p>';
+      /* TESTS
+      $order_item = \Drupal\commerce_order\Entity\OrderItem::load(34);
+      kint($order_item->getOrderId());
+      kint($order_item->get('machine_name_vm'));
+      kint($order_item);
+      $query = \Drupal::entityQuery('commerce_order_item');
+      //$query->condition('machine_name_vm', );
+      $query->condition('order_item_id', $order_item->id(), '!=' );
+      $query->orConditionGroup()
+      ->condition('order_id.entity.state', 'validation')
+      ->condition('order_id.entity.state', 'completed')
+      ->condition('order_id.entity.state', 'expired');
+
+
+      //$existent_count = $query->count()->execute();
+      print_r( $query->execute() );
+       */
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function vm_unique_name_values_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // ddl($fields);
+  if ($entity_type->id() == 'commerce_order_item' && !empty($fields['machine_name_vm'])) {
+    $fields['machine_name_vm']->addConstraint('MachineName', []);
+    $fields['machine_name_vm']->setPropertyConstraints('value', ['Regex' => ['pattern' => '/^(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d])$/', 'message' => t('Please, add a valid server name which can be converted to a lower-level label in domain name, only numbers, hyphens and letters are accepted.')]]);
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function vm_unique_name_values_base_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // ddl($fields);
+  if ($entity_type->id() == 'commerce_order_item' && !empty($fields['machine_name_vm'])) {
+    $fields['machine_name_vm']->addConstraint('MachineName', []);
+    $fields['machine_name_vm']->setPropertyConstraints('value', ['Regex' => ['pattern' => '/^(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d])$/', 'message' => t('Please, add a valid server name which can be converted to a lower-level label in domain name, only numbers, hyphens and letters are accepted.')]]);
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info().
+ */
+function vm_unique_name_values_entity_bundle_field_info(EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+}

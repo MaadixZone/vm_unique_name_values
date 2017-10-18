@@ -1,0 +1,14 @@
+{
+  "name": "drupal/vm_unique_name_values",
+  "type": "drupal-module",
+  "description": "Virtual machine unique_name",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/vm_unique_name_values",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/vm_unique_name_values",
+    "source": "http://cgit.drupalcode.org/vm_unique_name_values"
+  },
+  "require": { }
+}
